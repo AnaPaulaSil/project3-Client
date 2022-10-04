@@ -1,25 +1,29 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
+import ChatPage from "./pages/ChatPage";
+import ErrorPage from "./pages/ErrorPage";
+import FeedPage from "./pages/FeedPage";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
 
-import { AuthContextComponent } from"./context/authContext";
+import { AuthContextComponent } from "./context/authContext";
 
 function App() {
   return (
     <div className="App">
       <AuthContextComponent>
-
-      <Routes>
-        <Route path="/" element={<HomePage/>}></Route>
-        <Route path="sign-up" element={<SignUpPage/>}></Route>
-        {/* <Route
-            path="/users/:idUser"
-            element={<ProtectRoute Component={UsersPage} />}
-          /> */}
-      </Routes>
-
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/sign-up" element={<SignUpPage />}></Route>
+          <Route path="/login" element={<LoginPage/>}></Route>
+          <Route path="/feed" element={<FeedPage/>}></Route>
+          <Route path="/profile" element={<ProfilePage/>}></Route>
+          <Route path="/chat" element={<ChatPage/>}></Route>
+          <Route path="*" element={<ErrorPage/>}></Route>
+        </Routes>
       </AuthContextComponent>
     </div>
   );
