@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../../api/api";
+import Navbarr from "../../components/Navbar";
+import {Link} from "react-router-dom"
 
 function ProfilePage() {
   const [form, setForm] = useState({
@@ -25,6 +27,11 @@ function ProfilePage() {
   //delet post (btn)
 
   return (
+    <>
+    <Navbarr/>
+
+    <Link to="/chat">chat</Link>
+
     <form>
       <label>Faça um post:</label>
       <textarea
@@ -35,6 +42,7 @@ function ProfilePage() {
         onChange={handleChange}
       />
     </form>
+    </>
   );
 }
 

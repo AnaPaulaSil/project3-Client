@@ -1,15 +1,24 @@
 import { Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../assets/dev-connetion-logo.png"
-import {BsPersonFill} from "react-icons/bs" 
-import {BsFillArrowLeftCircleFill} from "react-icons/bs"
+import logo from "../../assets/dev-connetion-logo.png"; //feed
+import { BsPersonFill } from "react-icons/bs"; //profile
 
-function Navbar() {
+function Navbarr() {
   return (
-    <Navbar className>
-        
-    </Navbar>
-  )
+    <>
+      <Navbar style={{ backgroundColor: "red", display: "flex" }}>
+        <Link to={"/feed"}>
+          <img
+            src={logo}
+            style={{ width: "80px", justifyContent: "space-bettwen" }}
+          />
+        </Link>
+        <Link to={"/profile"}>
+          <BsPersonFill />
+        </Link>
+      </Navbar>
+    </>
+  );
 }
 
-export default Navbar;
+export default Navbarr;

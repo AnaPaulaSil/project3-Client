@@ -5,9 +5,10 @@ import ChatPage from "./pages/ChatPage";
 import ErrorPage from "./pages/ErrorPage";
 import FeedPage from "./pages/FeedPage";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
+import {LoginPage} from "./pages/LoginPage/index";
 import ProfilePage from "./pages/ProfilePage";
-import SignUpPage from "./pages/SignUpPage";
+import {SignUpPage} from "./pages/SignUpPage/index";
+import ProfileDetailPage from "./pages/ProfileDetailPage";
 
 import { AuthContextComponent } from "./context/authContext";
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>}></Route>
           <Route path="/feed" element={<FeedPage/>}></Route>
           <Route path="/profile" element={<ProfilePage/>}></Route>
+          <Route path="/profileDetail" element={<ProfileDetailPage/>}></Route>
           <Route path="/chat" element={<ChatPage/>}></Route>
           <Route path="*" element={<ErrorPage/>}></Route>
         </Routes>
