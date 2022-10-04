@@ -13,7 +13,7 @@ function HomePage() {
     async function fetchUsers() {
       setIsLoading(true);
       try {
-        const response = await api.get("/users/all");
+        const response = await api.get("/users/guest-all"); //rota protegida
         setUsers([...response.data]);
         setIsLoading(false);
       } catch (error) {
@@ -34,19 +34,9 @@ function HomePage() {
       )}
 
       <>
-        <h1>user</h1>
+        <h1>Login</h1>
 
-        {!isLoading &&
-          users.map((user) => {
-            if (user._id !== loggedInUser.user._id) {
-              return (
-                <div key={user._id}>
-                  <h1>{user.username}</h1>
-                </div>
-              );
-            }
-            return users;
-          })}
+ 
       </>
     </div>
   );

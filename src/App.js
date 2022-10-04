@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AuthContextComponent } from "./context/authContext";
 
