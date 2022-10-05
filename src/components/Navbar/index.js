@@ -1,23 +1,28 @@
 import { Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../assets/dev-connetion-logo.png"; //feed
+import logo from "../../assets/conecta-vertical.png"; //feed
 // import  {BsPersonFill}  from "react-icons/bs"; //profile
+import style from "./style.module.css";
 
 function Navbarr() {
   return (
     <>
-      <Navbar style={{ backgroundColor: "red", display: "flex" }}>
+      <div className={style.back}>
+
+      <Navbar className={style.navbar}>
         <Link to={"/feed"}>
           <img
             src={logo}
-            style={{ width: "80px", justifyContent: "space-bettwen" }}
+            style={{ width: "68px" , padding: "4px" }}
           />
+        
         </Link>
         <Link to={"/profile"}>
           {/* <BsPersonFill /> */}
-          <p>profile pode apagar esse p</p>
+          <p>Profile</p>
         </Link>
       </Navbar>
+            </div>
     </>
   );
 }
