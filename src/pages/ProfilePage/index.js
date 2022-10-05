@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../../pages/ProfilePage/style.module.css";
+
+import { AuthContext } from "../../context/authContext";
+
 
 function ProfilePage() {
   const [form, setForm] = useState({
@@ -10,6 +13,7 @@ function ProfilePage() {
     author: "",
     like: [],
   });
+
 
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -80,6 +84,15 @@ function ProfilePage() {
 
   console.log(user);
 
+  const { loggedInUser } = useContext(AuthContext);
+
+  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [editPost, setEditPost] = useState([]);
+  const [deletePost, setDeletePost] = useState([]);
+ 
+
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -88,16 +101,51 @@ function ProfilePage() {
     e.preventDefault();
     try {
       await api.post("/posts/create-post",form);
+
     } catch (error) {
       console.log(error);
     }
   }
 
 
+  async function EditProfile() {
+      try {
+          const response = await api.put(`/users/edit`);
+
+          setUsers(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function AllPosts() {
+        try {
+            const allPosts = await api.get(`posts/all-posts`)
+            setPosts(allPosts.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
   //edit post (btn)
-  //delet post (btn)
+    async function EditPost() {
+        try {
+            const editPost = await api.put(`posts/edit-post/:idPost`)
+            setEditPost(editPost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+  //delet post (btn)
+    async function deletePost() {
+        try {
+            const deletePost = await api.delete(`deleted-post/:idPost`)
+            setDeletePost(deletePost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
   return (
     <>
         <Navbarr />
@@ -136,6 +184,7 @@ function ProfilePage() {
 
         <button onClick={handleLogOut}>Logout</button>
       </div>
+
     </>
   );
 }

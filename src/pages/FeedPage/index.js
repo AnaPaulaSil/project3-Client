@@ -13,9 +13,9 @@ function FeedPage() {
     async function cardsUsers() {
       try {
         const response = await api.get(`/users/all`);
-        console.log(response);
+        // console.log(response);
         setUsers(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -33,8 +33,8 @@ function FeedPage() {
   //   }
   // }
 
-  console.log("logged", loggedInUser._id);
-  console.log("user", users._id);
+  // console.log("logged", loggedInUser._id);
+  // console.log("user", users._id);
 
   return (
     <>
@@ -43,7 +43,9 @@ function FeedPage() {
 
       {users
         .filter((user) => {
-          return loggedInUser._id !== user._id;
+          if (loggedInUser._id != user._id) {
+            return
+          }
         })
         .map((user) => {
           return (
