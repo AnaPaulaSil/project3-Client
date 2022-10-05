@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+
+.myMessage {
+  color: red
+}
+
+.otherMessage {
+  color: blue
+}

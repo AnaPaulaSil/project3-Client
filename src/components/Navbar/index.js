@@ -1,7 +1,7 @@
 import { Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../assets/dev-connetion-logo.png"; //feed
-// import  {BsPersonFill}  from "react-icons/bs"; //profile
+import  {BsPersonFill}  from "react-icons/bs"; //profile
 
 function Navbarr() {
   return (
@@ -14,8 +14,8 @@ function Navbarr() {
           />
         </Link>
         <Link to={"/profile"}>
-          {/* <BsPersonFill /> */}
-          <p>profile pode apagar esse p</p>
+          <BsPersonFill />
+          {/* <p>profile pode apagar esse p</p> */}
         </Link>
       </Navbar>
     </>
