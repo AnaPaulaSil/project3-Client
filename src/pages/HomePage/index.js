@@ -25,18 +25,15 @@ function HomePage() {
 
   return (
     <div>
-      {!loggedInUser && (
+      {/* {!loggedInUser && ( */}
         <>
           <h1>Home</h1>
           <Link to="/sign-up">Sign up</Link>
-          <></>
         </>
-      )}
+       {/* )} */}
 
       <>
-        <h1>Login</h1>
-
- 
+        <Link to="/login">Login</Link>
       </>
     </div>
   );
