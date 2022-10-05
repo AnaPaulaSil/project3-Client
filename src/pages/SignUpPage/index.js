@@ -5,11 +5,24 @@ import Button from "react-bootstrap/Button";
 
 function Signup() {
   const interesses = [
-    { skill: "hardskills", selected: "outline-primary" },
-    { skill: "ui ux", selected: "outline-primary" },
-    { skill: "backend", selected: "outline-primary" },
-    { skill: "cyber security", selected: "outline-primary" },
-    { skill: "fullstack", selected: "outline-primary" },
+    { skill: "Front-end", selected: "outline-danger" },
+    { skill: "Back-end", selected: "outline-danger" },
+    { skill: "Full-stack", selected: "outline-danger" },
+    { skill: "UX-UI", selected: "outline-danger" },
+    { skill: "Cyber security", selected: "outline-danger" },
+    { skill: "Hard skill", selected: "outline-danger" },
+    { skill: "Soft skill", selected: "outline-danger" },
+    { skill: "WEB DEV", selected: "outline-danger" },
+  ];
+
+  const relacionamento = [
+    { status: "Solteiro", selected: "outline-danger" },
+    { status: "Casado", selected: "outline-danger" },
+    { status: "Ficando", selected: "outline-danger" },
+    { status: "Noivo", selected: "outline-danger" },
+    { status: "Poliamor", selected: "outline-danger" },
+    { status: "Relacionamento monogâmico", selected: "outline-danger" },
+    { status: "Relacionamento não monogâmico", selected: "outline-danger" },
   ];
 
   const navigate = useNavigate();
@@ -24,26 +37,43 @@ function Signup() {
     orientacaoSexual: "",
     cidade: "",
     statusRel: "",
-    interesses: "",
+    interesses: [],
   });
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
+
+  //interesses
   function changeButton(index, e) {
-    if (e.target.className === "btn btn-primary") {
-      e.target.className = "btn btn-outline-primary";
+    if (e.target.className === "btn btn-danger") {
+      e.target.className = "btn btn-outline-danger";
     } else {
-      e.target.className = "btn btn-primary";
+      e.target.className = "btn btn-danger";
     }
 
-    interesses[index].selected = "primary";
+    interesses[index].selected = "danger";
+    const clone = { ...form };
+    clone.interesses.push(e.target.outerText);
+    setForm(clone);
+  }
+
+  //statusrel
+  function changeBtn(lista, e) {
+    if (e.target.className === "btn btn-danger") {
+      e.target.className = "btn btn-outline-danger";
+    } else {
+      e.target.className = "btn btn-danger";
+    }
+    console.log(e);
+    relacionamento[lista].selected = "danger";
+    setForm({ ...form, statusRel: e.target.outerText });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await api.post("/user/signup", { ...form });
+      await api.post("/users/sign-up", form);
 
       navigate("/login");
     } catch (error) {
@@ -51,14 +81,19 @@ function Signup() {
     }
   }
 
+  console.log(form);
   return (
     <>
+      <label className="font: Poppins-Bold font-size: 39px color: #333">
+        <h1>Welcome</h1>
+      </label>
+
       <form onSubmit={handleSubmit}>
         <label>Nome:</label>
         <input
           name="username"
           type="text"
-          value={form.name}
+          value={form.username}
           onChange={handleChange}
         />
 
@@ -68,6 +103,8 @@ function Signup() {
           type="email"
           value={form.email}
           onChange={handleChange}
+          placeholder="Email"
+          className="mb-3 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
         />
         <label>Senha:</label>
         <input
@@ -77,16 +114,30 @@ function Signup() {
           onChange={handleChange}
         />
 
-        <label>Idade:</label>
-        <input name="age" type="age" value={form.age} onChange={handleChange} />
+        <div>
+          <label>Idade:</label>
+          <input
+            name="age"
+            type="age"
+            value={form.age}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label>Sexo:</label>
-        <input
+        <label htmlFor="formGroupExampleInput" className="form-label">
+          Sexo:
+        </label>
+        <select
+          className="form-control"
           name="sexo"
           type="sexo"
-          value={form.sexo}
           onChange={handleChange}
-        />
+        >
+          <option>Feminino</option>
+          <option>Masculino</option>
+          <option>Outros</option>
+        </select>
+
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput" className="form-label">
             Data de Nascimento:
@@ -97,7 +148,7 @@ function Signup() {
             name="dataNasc"
             type="date"
             placeholder="Data de Nascimento"
-            // onchange={handleChange}
+            onChange={handleChange}
           />
         </div>
 
@@ -120,7 +171,7 @@ function Signup() {
           <option>Queer</option>
           <option>Outro</option>
         </select>
-        <label for="formGroupExampleInput" className="form-label">
+        <label htmlFor="formGroupExampleInput" className="form-label">
           Cidade
         </label>
         <select
@@ -157,33 +208,25 @@ function Signup() {
         </select>
 
         <div>
-          <label>Status Relacionamento:</label>
-
-          <button type="button" className="btn btn-light">
-            Solteiro
-          </button>
-          <button type="button" className="btn btn-light">
-            Casado
-          </button>
-          <button type="button" className="btn btn-light">
-            Ficando
-          </button>
-          <button type="button" className="btn btn-light">
-            Noivo
-          </button>
-          <button type="button" className="btn btn-light">
-            Poliamor
-          </button>
-          <button type="button" className="btn btn-light">
-            Relacionamento monogâmico
-          </button>
-          <button type="button" className="btn btn-light">
-            Relacionamento não monogâmico
-          </button>
+          <label htmlFor="formGroupExampleInput" className="form-label">
+            Relacionamento:
+          </label>
+          {relacionamento.map((rel, lista) => {
+            return (
+              <Button
+                variant={rel.selected}
+                onClick={(e) => {
+                  changeBtn(lista, e);
+                }}
+              >
+                {rel.status}
+              </Button>
+            );
+          })}
         </div>
 
         <div>
-          <label for="formGroupExampleInput" classNameName="form-label">
+          <label htmlFor="formGroupExampleInput" className="form-label">
             Interesses em:
           </label>
           {interesses.map((interes, index) => {
@@ -201,7 +244,7 @@ function Signup() {
         </div>
 
         <button type="submit" className="btn btn-light">
-          Cadastrar
+          Sign In
         </button>
       </form>
     </>
