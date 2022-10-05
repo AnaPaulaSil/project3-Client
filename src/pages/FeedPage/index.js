@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar/index";
-import { Link, useRoutes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 
 function FeedPage() {
