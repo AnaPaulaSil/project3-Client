@@ -14,8 +14,6 @@ function ProfilePage() {
 
   const [form, setForm] = useState({
     content: "",
-    author: "",
-    like: [],
   });
 
   const [user, setUser] = useState({});
@@ -97,11 +95,12 @@ function ProfilePage() {
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-
+  console.log(form);
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       await api.post("/posts/create-post", form);
+
       setReload(!reload);
     } catch (error) {
       console.log(error);
