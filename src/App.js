@@ -22,7 +22,7 @@ function App() {
           <Route path="/sign-up" element={<SignUpPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/feed" element={<FeedPage />}></Route>
-          {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
+          <Route path="/profile" element={<ProfilePage />}></Route> 
           <Route path="/users/:id" element={<ProfileDetailPage />}></Route>
           <Route path="/chat/:idChat" element={<ChatPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
