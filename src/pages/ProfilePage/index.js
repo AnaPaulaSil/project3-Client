@@ -1,186 +1,219 @@
-// import { useState, useEffect, useContext } from "react";
-// import { api } from "../../api/api";
-// import Navbarr from "../../components/Navbar";
-// import { Link, useNavigate } from "react-router-dom";
-// import style from "../../pages/ProfilePage/style.module.css";
+import { useState, useEffect, useContext } from "react";
+import { api } from "../../api/api";
+import Navbarr from "../../components/Navbar";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import style from "../../pages/ProfilePage/style.module.css";
+import EditProfilePage from "../../components/EditProfilePage";
+import { Button } from "react-bootstrap";
+import EditPostPage from "../../components/EditPostPage";
 
-// import { AuthContext } from "../../context/authContext";
-
-
-// function ProfilePage() {
-//   const [form, setForm] = useState({
-//     content: "",
-//     author: "",
-//     like: [],
-//   });
+import { AuthContext } from "../../context/authContext";
 
 
-//   const [user, setUser] = useState({});
-//   const [isLoading, setIsLoading] = useState(true);
+function ProfilePage() {
+  const { id } = useParams();
 
-//   const [img, setImg] = useState("");
-//   const [reload, setReload] = useState(true);
+  const [form, setForm] = useState({
+    content: "",
+    author: "",
+    like: [],
+  });
 
-//   const navigate = useNavigate()
 
-//   useEffect(() => {
-//     async function fetchUserData() {
-//       setIsLoading(true);
-//       try {
-//         const response = await api.get("/users/profile");
-//         console.log("useEffect");
-//         console.log(response.data);
-//         setUser(response.data);
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
-//         setIsLoading(false);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
+  const [img, setImg] = useState("");
+  const [reload, setReload] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
-//     fetchUserData();
-//   }, [reload]);
+  const navigate = useNavigate();
 
-//   function handleLogOut(e) {
-//     e.preventDefault();
-//     localStorage.removeItem("loggedInUser");
-//     navigate("/");
-//   }
+  useEffect(() => {
+    async function fetchUserData() {
+      setIsLoading(true);
+      try {
+        console.log("oi");
+        const response = await api.get(`/users/profile`);
+        console.log(response.data);
+        setUser(response.data);
+        setForm(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-//   function handleImage(e) {
-//     setImg(e.target.files[0]);
-//   }
+    fetchUserData();
+  }, [reload]);
 
-//   useEffect(() => {
-//     async function updateIMG() {
-//       if (!img) {
-    
-//         return;
-//       }
-//       await handleUpload();
-//       setReload(!reload);
-//     }
-//     updateIMG();
-//   }, [img]);
+  function handleLogOut(e) {
+    e.preventDefault();
+    localStorage.removeItem("loggedInUser");
+    navigate("/");
+  }
 
-//   async function handleUpload() {
-//     try {
-//       const uploadData = new FormData();
-//       console.log(uploadData);
-//       uploadData.append("picture", img);
-//       console.log(uploadData);
+  function handleImage(e) {
+    setImg(e.target.files[0]);
+  }
 
-//       const response = await api.post("/upload-image", uploadData);
-//       console.log(response);
-//       let url = response.data.url;
-//       const response2 = await api.put("/users/edit", {
-//         profilePic: url,
-//       });
-//       console.log(response2);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+  useEffect(() => {
+    async function updateIMG() {
+      if (!img) {
+        return;
+      }
+      await handleUpload();
+      setReload(!reload);
+    }
+    updateIMG();
+  }, [img]);
 
-//   console.log(user);
+  async function handleUpload() {
+    try {
+      const uploadData = new FormData();
+      console.log(uploadData);
+      uploadData.append("picture", img);
+      console.log(uploadData);
 
-//   const { loggedInUser } = useContext(AuthContext);
+      const response = await api.post("/upload-image", uploadData);
+      console.log(response);
+      let url = response.data.url;
+      const response2 = await api.put("/users/edit", {
+        profilePic: url,
+      });
+      console.log(response2);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-// //   const [users, setUsers] = useState([]);
-// //   const [posts, setPosts] = useState([]);
-// //   const [editPost, setEditPost] = useState([]);
-// //   const [deletePost, setDeletePost] = useState([]);
+  console.log(user);
+
+  const { loggedInUser } = useContext(AuthContext);
+
+  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [editPost, setEditPost] = useState([]);
+  const [deletePost, setDeletePost] = useState([]);
  
 
 
-//   function handleChange(e) {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   }
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
 
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     try {
-//       await api.post("/posts/create-post",form);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
 
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+      await api.post("/posts/create-post", form);
+      setReload(!reload);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
-//   async function EditProfile() {
-//       try {
-//           const response = await api.put(`/users/edit`);
+  async function EditProfile() {
+      try {
+          const response = await api.put(`/users/edit`);
 
-// //           setUsers(response.data);
-// //         } catch (error) {
-// //             console.log(error);
-// //         }
-// //     }
+          setUsers(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-// //     async function AllPosts() {
-// //         try {
-// //             const allPosts = await api.get(`posts/all-posts`)
-// //             setPosts(allPosts.data)
-// //         } catch (error) {
-// //             console.log(error)
-// //         }
-// //     }
+    async function AllPosts() {
+        try {
+            const allPosts = await api.get(`posts/all-posts`)
+            setPosts(allPosts.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-// //   //edit post (btn)
-// //     async function EditPost() {
-// //         try {
-// //             const editPost = await api.put(`posts/edit-post/:idPost`)
-// //             setEditPost(editPost.data)
-// //         } catch (error) {
-// //             console.log(error)
-// //         }
-// //     }
+  //edit post (btn)
+    async function EditPost() {
+        try {
+            const editPost = await api.put(`posts/edit-post/:idPost`)
+            setEditPost(editPost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-//   //delet post (btn)
-//     async function deletePost() {
-//         try {
-//             const deletePost = await api.delete(`deleted-post/:idPost`)
-//             setDeletePost(deletePost.data)
-//         } catch (error) {
-//             console.log(error)
-//         }
-//     }
-//   return (
-//     <>
-//         <Navbarr />
-//       <div className={style.bodyprofile}>
-//         {!isLoading && (
-//           <>
-//             <h1>{user.username}</h1>
-//             <p>{user.email}</p>
-//             <img src={user.profilePic} alt="" width={150} />
+  //delet post (btn)
+    async function deletedPost() {
+        try {
+            const deletePost = await api.delete(`deleted-post/:idPost`)
+            setDeletePost(deletePost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-//             <p>Bio: {user.bio}</p>
 
-//             <p>Interesses em: {user.interesses}</p>
-//           </>
-//         )}
+  return (
+    <>
+      <Navbarr />
+      <div className={style.bodyprofile}>
+        {!isLoading && (
+          <>
+            <h1>{user.username}</h1>
+            <p>{user.cidade}</p>
+            <p>{user.statusRel}</p>
+            <img src={user.profilePic} alt="" width={150} />
 
-//           <label>Faça um post:</label>
-//         <form>
-//           <textarea
-//             placeholder="Digite aqui..."
-//             name="content"
-//             type="text"
-//             value={form.content}
-//             onChange={handleChange}
-//           />
-//         </form> 
-//         <button type="submit" className="btn btn-light">
-//         Send!</button>
+            <p>Bio: {user.bio}</p>
 
-//         <Link to="/chat">chat</Link>
-        
-//         <div>
-//           <p>Alterar foto de perfil</p>
-//           <input type="file" onChange={handleImage} />
-//         </div>
+            <p>Interesses em: {user.interesses}</p>
+
+            <Button
+              onClick={() => setShowForm(!showForm)}
+              className="btn btn-light btn-outline-dark btn-sm me-2"
+            >
+              Editar Perfil
+            </Button>
+          </>
+        )}
+
+        {showForm === true && (
+          <EditProfilePage
+            form={form}
+            id={id}
+            setShowForm={setShowForm}
+            setForm={setForm}
+            reload={reload}
+            setReload={setReload}
+            showForm={showForm}
+          />
+        )}
+
+        <label>Faça um post:</label>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            placeholder="Digite aqui..."
+            name="content"
+            type="text"
+            value={form.content}
+            onChange={handleChange}
+          />
+          <button type="submit" className="btn btn-light">
+            Send!
+          </button>
+        </form>
+
+
+        <Link to="/chat">chat</Link>
+
+        <div>
+          <p>Alterar foto de perfil</p>
+          <input type="file" onChange={handleImage} />
+        </div>
+        <EditPostPage reload={reload} setReload={setReload} />
+
 
 //         <button onClick={handleLogOut}>Logout</button>
 //       </div>
