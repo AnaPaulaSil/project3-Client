@@ -10,9 +10,11 @@
     rgba(35, 213, 228, 1) 0%,
     rgba(240, 11, 254, 1) 100% */
   /* ); */
-  background-image: url("../../assets/images/bg-01.jpg");
-  background-repeat: no-repeat;
-  background-size: cover ;
+  /* background-image: url("../../assets/images/bg-01.jpg"); */
+  /* background-repeat: no-repeat;
+  background-size: cover ; */
+  background: rgb(35,213,228);
+  background: linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%);
 }
 
 .welcome {

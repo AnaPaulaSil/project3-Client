@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import style from "../../pages/ProfilePage/style.module.css";
+import { PostsBox } from "../../components/PostsBox/index";
+import EditProfilePage from "../../components/EditProfilePage";
+import { Button } from "react-bootstrap";
 
 function ProfilePage() {
+  const { id } = useParams();
+
   const [form, setForm] = useState({
     content: "",
     author: "",
@@ -16,18 +21,19 @@ function ProfilePage() {
 
   const [img, setImg] = useState("");
   const [reload, setReload] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUserData() {
       setIsLoading(true);
       try {
-        const response = await api.get("/users/profile");
-        console.log("useEffect");
+        console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOW");
+        const response = await api.get(`/users/profile`);
         console.log(response.data);
         setUser(response.data);
-
+        setForm(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -50,7 +56,6 @@ function ProfilePage() {
   useEffect(() => {
     async function updateIMG() {
       if (!img) {
-    
         return;
       }
       await handleUpload();
@@ -87,35 +92,53 @@ function ProfilePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await api.post("/posts/create-post",form);
+      await api.post("/posts/create-post", form);
+      setReload(!reload);
     } catch (error) {
       console.log(error);
     }
   }
-
-
 
   //edit post (btn)
   //delet post (btn)
 
   return (
     <>
-        <Navbarr />
+      <Navbarr />
       <div className={style.bodyprofile}>
         {!isLoading && (
           <>
             <h1>{user.username}</h1>
-            <p>{user.email}</p>
+            <p>{user.cidade}</p>
             <img src={user.profilePic} alt="" width={150} />
 
             <p>Bio: {user.bio}</p>
 
             <p>Interesses em: {user.interesses}</p>
+
+            <Button
+              onClick={() => setShowForm(!showForm)}
+              className="btn btn-light btn-outline-dark btn-sm me-2"
+            >
+              Editar Perfil
+            </Button>
           </>
         )}
 
-          <label>Faça um post:</label>
-        <form>
+        {showForm === true && (
+          <EditProfilePage
+            form={form}
+            id={id}
+            setShowForm={setShowForm}
+            setForm={setForm}
+            reload={reload}
+            setReload={setReload}
+            showForm={showForm}
+          />
+        )}
+
+        <label>Faça um post:</label>
+        <form onSubmit={handleSubmit}>
           <textarea
             placeholder="Digite aqui..."
             name="content"
@@ -123,12 +146,14 @@ function ProfilePage() {
             value={form.content}
             onChange={handleChange}
           />
-        </form> 
-        <button type="submit" className="btn btn-light">
-        Send!</button>
+          <button type="submit" className="btn btn-light">
+            Send!
+          </button>
+        </form>
+        <PostsBox reload={reload} setReload={setReload} />
 
         <Link to="/chat">chat</Link>
-        
+
         <div>
           <p>Alterar foto de perfil</p>
           <input type="file" onChange={handleImage} />
