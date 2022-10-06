@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import style from "../../pages/ProfilePage/style.module.css";
-import { PostsBox } from "../../components/PostsBox/index";
 import EditProfilePage from "../../components/EditProfilePage";
 import { Button } from "react-bootstrap";
+import EditPostPage from "../../components/EditPostPage";
+
+import { AuthContext } from "../../context/authContext";
+
 
 function ProfilePage() {
   const { id } = useParams();
@@ -15,6 +18,7 @@ function ProfilePage() {
     author: "",
     like: [],
   });
+
 
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +33,7 @@ function ProfilePage() {
     async function fetchUserData() {
       setIsLoading(true);
       try {
-        console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOW");
+        console.log("oi");
         const response = await api.get(`/users/profile`);
         console.log(response.data);
         setUser(response.data);
@@ -85,6 +89,15 @@ function ProfilePage() {
 
   console.log(user);
 
+  const { loggedInUser } = useContext(AuthContext);
+
+  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [editPost, setEditPost] = useState([]);
+  const [deletePost, setDeletePost] = useState([]);
+ 
+
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -92,15 +105,55 @@ function ProfilePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+
       await api.post("/posts/create-post", form);
       setReload(!reload);
+
     } catch (error) {
       console.log(error);
     }
   }
 
+
+  async function EditProfile() {
+      try {
+          const response = await api.put(`/users/edit`);
+
+          setUsers(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function AllPosts() {
+        try {
+            const allPosts = await api.get(`posts/all-posts`)
+            setPosts(allPosts.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
   //edit post (btn)
+    async function EditPost() {
+        try {
+            const editPost = await api.put(`posts/edit-post/:idPost`)
+            setEditPost(editPost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
   //delet post (btn)
+    async function deletedPost() {
+        try {
+            const deletePost = await api.delete(`deleted-post/:idPost`)
+            setDeletePost(deletePost.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
   return (
     <>
@@ -110,6 +163,7 @@ function ProfilePage() {
           <>
             <h1>{user.username}</h1>
             <p>{user.cidade}</p>
+            <p>{user.statusRel}</p>
             <img src={user.profilePic} alt="" width={150} />
 
             <p>Bio: {user.bio}</p>
@@ -150,7 +204,7 @@ function ProfilePage() {
             Send!
           </button>
         </form>
-        <PostsBox reload={reload} setReload={setReload} />
+
 
         <Link to="/chat">chat</Link>
 
@@ -158,9 +212,11 @@ function ProfilePage() {
           <p>Alterar foto de perfil</p>
           <input type="file" onChange={handleImage} />
         </div>
+        <EditPostPage reload={reload} setReload={setReload} />
 
         <button onClick={handleLogOut}>Logout</button>
       </div>
+
     </>
   );
 }

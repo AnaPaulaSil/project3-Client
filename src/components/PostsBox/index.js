@@ -12,8 +12,10 @@ export function PostsBox ({reload,setReload}) {
         try {
             const response = await api.get("/posts/all-posts")
             setPosts(response.data)
+            //toastsuccer
         } catch (error) {
             console.log(error)
+            //toasterror
         }
     }
     fetchPosts()

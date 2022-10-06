@@ -173,6 +173,7 @@ function Signup() {
             type="sexo"
             onChange={handleChange}
           >
+            <option></option>
             <option>Feminino</option>
             <option>Masculino</option>
             <option>Outros</option>
@@ -201,6 +202,7 @@ function Signup() {
             type="orientacaoSexual"
             onChange={handleChange}
           >
+            <option></option>
             <option>Hétero Sexual</option>
             <option>Gay</option>
             <option>Lésbica</option>
@@ -220,6 +222,7 @@ function Signup() {
             type="cidade"
             onChange={handleChange}
           >
+            <option></option>
             <option>Acre AC </option>
             <option>Alagoas AL</option>
             <option>Amapá AP </option>
@@ -237,8 +240,8 @@ function Signup() {
             <option>Paraíba PB</option>
             <option>Paraná PR</option>
             <option>Piauí PI</option>
-            <option>Rio de Janei</option>
-            <option>Rio Grande d</option>
+            <option>Rio de Janeiro RJ</option>
+            <option>Rio Grande do Norte RN</option>
             <option>Rio Grande do Sul RS</option>
             <option>Rondônia RO</option>
             <option>Roraima RR</option>
