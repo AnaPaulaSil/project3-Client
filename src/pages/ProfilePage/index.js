@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useContext } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
@@ -7,8 +8,8 @@ import EditProfilePage from "../../components/EditProfilePage";
 import { Button } from "react-bootstrap";
 import EditPostPage from "../../components/EditPostPage";
 
-import { AuthContext } from "../../context/authContext";
 
+import { AuthContext } from "../../context/authContext";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -109,6 +110,8 @@ function ProfilePage() {
       await api.post("/posts/create-post", form);
       setReload(!reload);
 
+      
+
     } catch (error) {
       console.log(error);
     }
@@ -144,7 +147,7 @@ function ProfilePage() {
         }
     }
 
-  //delet post (btn)
+
     async function deletedPost() {
         try {
             const deletePost = await api.delete(`deleted-post/:idPost`)
@@ -206,20 +209,16 @@ function ProfilePage() {
         </form>
 
 
-        <Link to="/chat">chat</Link>
-
         <div>
           <p>Alterar foto de perfil</p>
           <input type="file" onChange={handleImage} />
         </div>
         <EditPostPage reload={reload} setReload={setReload} />
+     <button onClick={handleLogOut}>Logout</button>
+      </div>
 
+     </>
+   );
+ }
 
-//         <button onClick={handleLogOut}>Logout</button>
-//       </div>
-
-//     </>
-//   );
-// }
-
-// export default ProfilePage;
+export default ProfilePage;
