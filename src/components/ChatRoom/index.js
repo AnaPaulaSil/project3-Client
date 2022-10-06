@@ -12,9 +12,9 @@ export function ChatRoom({ setChats, chats, setReload, reload, idChat }) {
     async function fetchChat() {
       try {
         const response = await api.get(`/chat/messages/${idChat}`);
-        console.log(response);
+        // console.log(response);
         setChats(response.data);
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.log(error);
       }

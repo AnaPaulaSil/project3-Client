@@ -38,10 +38,11 @@
 }
 
 
-.myMessage {
+.otherMessage {
   color: red
 }
 
-.otherMessage {
+
+.myMessage {
   color: blue
 }

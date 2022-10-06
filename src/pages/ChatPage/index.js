@@ -12,7 +12,7 @@ function ChatPage() {
     mensagem: "",
   });
 
-  console.log(idChat);
+  // console.log(idChat);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,14 +24,14 @@ function ChatPage() {
       const response = await api.post(`/chat/send-message/${idChat}`, form);
       //   console.log(response);
       setChats(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       setReload(!reload);
     } catch (error) {
       console.log(error);
     }
   }
 
-  console.log(form);
+  // console.log(form);
 
   return (
     <>
@@ -46,14 +46,15 @@ function ChatPage() {
       />
 
       <form>
-        <input
+        <input style={{display: "flex", padding:"5px", position: "fixed", bottom: "0", width: "100%", borderTop: "1px solid ligthgray"}}
           name="mensagem"
           type="text"
           value={form.mensagem}
           // placeholder="digite uma mensagem"
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>enviar mensagem</button>
+        <button style={{border: "none", marginRight: "5px", color: "red" }} 
+        onClick={handleSubmit}>enviar mensagem</button>
       </form>
     </>
   );

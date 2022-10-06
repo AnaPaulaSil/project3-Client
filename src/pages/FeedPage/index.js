@@ -39,7 +39,7 @@ function FeedPage() {
   // console.log("logged", loggedInUser._id);
   // console.log("user", users._id);
 
-  console.log(users);
+  // console.log(users);
   return (
     <>
       <Navbarr />
@@ -53,19 +53,22 @@ function FeedPage() {
           .map((user) => {
             return (
               <>
-                <Card>
+                <Card style={{ width: '18rem' , margin:"5%"}}>
                   <Link to={`/users/${user._id}`}>
-                    <img
-                      // onClick={visitProfile}
-                      src={user.profilePic}
+                <Card.Img variant="top" src={user.profilePic}
                       alt="user photo"
-                      style={{ width: "140px" }}
+                      style={{ width: "100px180" }}
+                    
                     />
                   </Link>
-
-                  <h3>{user.username}</h3>
+                <Card.Body >
+                  <Card.Title style={{fontSize: "34px"}}>{user.username}</Card.Title>
+                  <Card.Text style={{ fontSize: "20px"}}>{user.orientacaoSexual} {user.age}</Card.Text>
+                  <Card.Title style={{display: "flex", fontSize: "16px"}}>{user.cidade}</Card.Title>
+                </Card.Body>
+                  {/* <h3>{user.username}</h3>
                   <p>{user.age}</p>
-                  <h6>{user.cidade}</h6>
+                  <h6>{user.cidade}</h6> */}
                 </Card>
               </>
             );

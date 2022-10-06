@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
 import { useState, useEffect } from "react";
+import { Card } from "react-bootstrap";
 
 function ProfileDetailPage() {
   const [chat, setChat] = useState([]);
@@ -23,7 +24,7 @@ function ProfileDetailPage() {
     async function profileUser() {
       try {
         const response = await api.get(`/users/user/${id}`);
-        console.log(response);
+        // console.log(response);
         setUsers(response.data);
       } catch (error) {
         console.log(error);
@@ -36,11 +37,11 @@ function ProfileDetailPage() {
     try {
       const response = await api.post(`/chat/create-chat/${id}`);
       if (response.data.oldChat) {
-        console.log(response, "chat ja criado");
+        // console.log(response, "chat ja criado");
         navigate(`/chat/${response.data.oldChat}`);
         return;
       }
-      console.log(response, "chat novo");
+      // console.log(response, "chat novo");
 
       navigate(`/chat/${response.data._id}`); //id do chat criado
     } catch (error) {
@@ -51,8 +52,16 @@ function ProfileDetailPage() {
   return (
     <>
       <Navbarr />
-      <h1>profile detail - {users.username}</h1>
+      <Card>
+        <img src={users.profilePic}/>
+      <h1>{users.username}</h1>
+      <h4>{users.age}</h4>
+      <p>{users.bio}</p>
       <button onClick={handleChat}>Chat</button>
+      <h6>{users.orientacaoSexual}</h6>
+      <h6>{users.statusRel}</h6>
+      <p>{users.interesses}</p>
+      </Card>
     </>
   );
 }

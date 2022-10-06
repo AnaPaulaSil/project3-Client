@@ -14,7 +14,7 @@ function NavbarChat() {
       try {
         const response = await api.get(`/chat/messages/${idChat}`);
         // setDate(response.data);
-        console.log(response.data.users[0], "consolao");
+        // console.log(response.data.users[0], "consolao");
         setDate(response.data.users[0]);
       } catch (error) {
         console.log(error);
@@ -27,10 +27,10 @@ function NavbarChat() {
 
   return (
     <>
-      <Navbar style={{ backgroundColor: "grey", display: "flex" }}>
+      <Navbar style={{ backgroundColor: "lightgrey", display: "flex" }}>
         {/* ESSA PORRA TAMBEM TA ERRADA */}
         <Link to={`/users/${date}`}>
-          <BsFillArrowLeftCircleFill />
+          <BsFillArrowLeftCircleFill style={{color: "white", fontSize: "30px", marginLeft: "15px"}}/>
         </Link>
       </Navbar>
     </>

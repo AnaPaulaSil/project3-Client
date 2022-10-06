@@ -72,7 +72,7 @@ function Signup() {
     } else {
       e.target.className = "btn btn-danger";
     }
-    console.log(e);
+    // console.log(e);
     relacionamento[lista].selected = "danger";
     setForm({ ...form, statusRel: e.target.outerText });
   }
@@ -88,19 +88,19 @@ function Signup() {
     }
 
     const objectURL = URL.createObjectURL(img);
-    console.log(objectURL);
+    // console.log(objectURL);
     setPreview(objectURL);
 
     return () => URL.revokeObjectURL(objectURL);
   }, [img]);
-  console.log(img);
+  // console.log(img);
 
   async function handleUpload() {
     try {
       const uploadData = new FormData();
-      console.log(uploadData);
+      // console.log(uploadData);
       uploadData.append("picture", img);
-      console.log(uploadData);
+      // console.log(uploadData);
 
       const response = await api.post("/upload-image", uploadData);
 
@@ -123,7 +123,7 @@ function Signup() {
     }
   }
 
-  console.log(form);
+  // console.log(form);
   return (
     <>
       <div className={style.body}>
