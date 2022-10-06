@@ -117,7 +117,8 @@ function Signup() {
 
       await api.post("/users/sign-up", { ...form, profilePic: imgURL });
 
-      navigate("/");
+      navigate("/login");
+      //pode deixar /login der certinho
     } catch (error) {
       console.log(error);
     }
