@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useContext } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
@@ -7,7 +6,6 @@ import style from "../../pages/ProfilePage/style.module.css";
 import EditProfilePage from "../../components/EditProfilePage";
 import { Button } from "react-bootstrap";
 import EditPostPage from "../../components/EditPostPage";
-
 
 import { AuthContext } from "../../context/authContext";
 
@@ -19,7 +17,6 @@ function ProfilePage() {
     author: "",
     like: [],
   });
-
 
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -96,8 +93,6 @@ function ProfilePage() {
   const [posts, setPosts] = useState([]);
   const [editPost, setEditPost] = useState([]);
   const [deletePost, setDeletePost] = useState([]);
- 
-
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -106,57 +101,50 @@ function ProfilePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-
       await api.post("/posts/create-post", form);
       setReload(!reload);
-
-      
-
     } catch (error) {
       console.log(error);
     }
   }
 
-
   async function EditProfile() {
-      try {
-          const response = await api.put(`/users/edit`);
+    try {
+      const response = await api.put(`/users/edit`);
 
-          setUsers(response.data);
-        } catch (error) {
-            console.log(error);
-        }
+      setUsers(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    async function AllPosts() {
-        try {
-            const allPosts = await api.get(`posts/all-posts`)
-            setPosts(allPosts.data)
-        } catch (error) {
-            console.log(error)
-        }
+  async function AllPosts() {
+    try {
+      const allPosts = await api.get(`posts/all-posts`);
+      setPosts(allPosts.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   //edit post (btn)
-    async function EditPost() {
-        try {
-            const editPost = await api.put(`posts/edit-post/:idPost`)
-            setEditPost(editPost.data)
-        } catch (error) {
-            console.log(error)
-        }
+  async function EditPost() {
+    try {
+      const editPost = await api.put(`posts/edit-post/:idPost`);
+      setEditPost(editPost.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-
-    async function deletedPost() {
-        try {
-            const deletePost = await api.delete(`deleted-post/:idPost`)
-            setDeletePost(deletePost.data)
-        } catch (error) {
-            console.log(error)
-        }
+  async function deletedPost() {
+    try {
+      const deletePost = await api.delete(`deleted-post/:idPost`);
+      setDeletePost(deletePost.data);
+    } catch (error) {
+      console.log(error);
     }
-
+  }
 
   return (
     <>
@@ -208,17 +196,15 @@ function ProfilePage() {
           </button>
         </form>
 
-
         <div>
           <p>Alterar foto de perfil</p>
           <input type="file" onChange={handleImage} />
         </div>
         <EditPostPage reload={reload} setReload={setReload} />
-     <button onClick={handleLogOut}>Logout</button>
+        <button onClick={handleLogOut}>Logout</button>
       </div>
-
-     </>
-   );
- }
+    </>
+  );
+}
 
 export default ProfilePage;
