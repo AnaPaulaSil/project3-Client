@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { ChatRoom } from "../../components/ChatRoom/index";
-import NavbarChat from "../../components/NavbarChat"
+import NavbarChat from "../../components/NavbarChat";
 
 function ChatPage() {
   const { idChat } = useParams();
@@ -25,7 +25,10 @@ function ChatPage() {
       //   console.log(response);
       setChats(response.data);
       // console.log(response.data);
-      setReload(!reload);
+      //setReload(!reload);
+      setForm({
+        mensagem: "",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +38,7 @@ function ChatPage() {
 
   return (
     <>
-    <NavbarChat/>
+      <NavbarChat />
       <h1>Chat</h1>
       <ChatRoom
         chats={chats}
@@ -46,15 +49,27 @@ function ChatPage() {
       />
 
       <form>
-        <input style={{display: "flex", padding:"5px", position: "fixed", bottom: "0", width: "100%", borderTop: "1px solid ligthgray"}}
+        <input
+          style={{
+            display: "flex",
+            padding: "5px",
+            position: "fixed",
+            bottom: "0",
+            width: "100%",
+            borderTop: "1px solid ligthgray",
+          }}
           name="mensagem"
           type="text"
           value={form.mensagem}
           // placeholder="digite uma mensagem"
           onChange={handleChange}
         />
-        <button style={{border: "none", marginRight: "5px", color: "red" }} 
-        onClick={handleSubmit}>enviar mensagem</button>
+        <button
+          style={{ border: "none", marginRight: "5px", color: "red" }}
+          onClick={handleSubmit}
+        >
+          enviar mensagem
+        </button>
       </form>
     </>
   );
