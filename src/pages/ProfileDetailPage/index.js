@@ -3,6 +3,7 @@ import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
+import { BsFillChatRightDotsFill } from "react-icons/bs";
 
 function ProfileDetailPage() {
   const [chat, setChat] = useState([]);
@@ -52,15 +53,57 @@ function ProfileDetailPage() {
   return (
     <>
       <Navbarr />
-      <Card>
-        <img src={users.profilePic}/>
-      <h1>{users.username}</h1>
-      <h4>{users.age}</h4>
-      <p>{users.bio}</p>
-      <button onClick={handleChat}>Chat</button>
-      <h6>{users.orientacaoSexual}</h6>
-      <h6>{users.statusRel}</h6>
-      <p>{users.interesses}</p>
+      <Card> 
+        <img
+          style={{ width: "350px", display: "flex", margin: "5%" }}
+          src={users.profilePic}
+        />
+        <div style= {{display: "flex"}}>
+          <h1
+            style={{
+              color: "black",
+              fontSize: "40px",
+              display: "flex",
+              margin: "2%",
+            }}
+          >
+            {users.username}, {users.age}
+          </h1>
+          <p>{users.bio}</p>
+          <button
+            style={{
+              color: "white",
+              fontSize: "30px",
+              background: "rgb(35,213,228)",
+              background:
+                "linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%",
+              width: "70px",
+              borderRadius: "40px",
+            }}
+            onClick={handleChat}
+          >
+            <BsFillChatRightDotsFill />
+          </button>
+        </div>
+        <h6>
+          {users.statusRel}, {users.orientacaoSexual}
+        </h6>
+        <p>Interesses:</p>
+        <p
+          style={{
+            fontSize: "15px",
+            // backgroundColor: "lightgreen",
+            borderRadius: "8px",
+            padding: "4px",
+            background: "rgb(35,213,228)",
+            background:
+              "linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%",
+            width: "80px",
+            margin: "1%",
+          }}
+        >
+          {users.interesses}
+        </p>
       </Card>
     </>
   );

@@ -20,7 +20,7 @@ function Navbarr() {
         
         </Link>
         <Link to={"/profile"}>
-          <BsPersonFill />
+          <BsPersonFill style= {{color: "white", fontSize: "35px" }}/>
           {/* <p>profile pode apagar esse p</p> */}
         </Link>
       </Navbar>
