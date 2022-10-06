@@ -34,7 +34,7 @@ export function ChatRoom({ setChats, chats, setReload, reload, idChat }) {
                   : "otherMessage"
               }
             >
-              <p>mensagem: {msg.mensagem}</p>
+              <p style={{fontSize: "18px"}}>{msg.mensagem}</p>
             </div>
           );
         })}

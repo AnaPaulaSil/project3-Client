@@ -11,6 +11,7 @@ function ProfileDetailPage() {
   //isloading
   const { id } = useParams();
   const navigate = useNavigate();
+  const [posts, setPosts] = useState([])
 
   async function InitChat() {
     try {
@@ -105,6 +106,14 @@ function ProfileDetailPage() {
           {users.interesses}
         </p>
       </Card>
+      {posts.map((post) => {
+        return (
+          <Card>
+            <p>{post.username}</p>
+            <p>{post.posts}</p>
+          </Card>
+        )
+      })}
     </>
   );
 }

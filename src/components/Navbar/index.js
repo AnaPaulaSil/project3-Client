@@ -4,6 +4,7 @@ import logo from "../../assets/conecta-vertical.png"; //feed
 // import  {BsPersonFill}  from "react-icons/bs"; //profile
 import style from "./style.module.css";
 import  {BsPersonFill}  from "react-icons/bs"; //profile
+import  {BsFillArrowRightCircleFill}  from "react-icons/bs"; //profile
 
 
 function Navbarr() {
@@ -21,8 +22,8 @@ function Navbarr() {
         </Link>
         <Link to={"/profile"}>
           <BsPersonFill style= {{color: "white", fontSize: "35px" }}/>
-          {/* <p>profile pode apagar esse p</p> */}
         </Link>
+        <Link style= {{color: "white", fontSize: "25px" }} to={"/"}><BsFillArrowRightCircleFill/></Link>
       </Navbar>
             </div>
     </>

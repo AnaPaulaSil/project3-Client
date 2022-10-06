@@ -40,6 +40,7 @@ function ChatPage() {
     <>
       <NavbarChat />
       <h1>Chat</h1>
+
       <ChatRoom
         chats={chats}
         setReload={setReload}
@@ -49,27 +50,28 @@ function ChatPage() {
       />
 
       <form>
-        <input
-          style={{
-            display: "flex",
-            padding: "5px",
-            position: "fixed",
-            bottom: "0",
-            width: "100%",
-            borderTop: "1px solid ligthgray",
-          }}
-          name="mensagem"
-          type="text"
-          value={form.mensagem}
-          // placeholder="digite uma mensagem"
-          onChange={handleChange}
-        />
-        <button
+          <input
+            style={{
+              display: "flex",
+              padding: "5px",
+              position: "fixed",
+              bottom: "0",
+              width: "100%",
+              borderTop: "1px solid ligthgray",
+            }}
+            name="mensagem"
+            type="text"
+            value={form.mensagem}
+            // placeholder="digite uma mensagem"
+            onChange={handleChange}
+          />
+          <button
           style={{ border: "none", marginRight: "5px", color: "red" }}
           onClick={handleSubmit}
-        >
-          enviar mensagem
-        </button>
+          >
+            enviar mensagem
+          </button>
+            
       </form>
     </>
   );
