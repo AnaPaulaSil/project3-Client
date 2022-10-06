@@ -200,18 +200,19 @@ function Signup() {
             className="form-control"
             name="orientacaoSexual"
             type="orientacaoSexual"
+            value={form.orientacaoSexual}
             onChange={handleChange}
           >
             <option></option>
-            <option>Hétero Sexual</option>
-            <option>Gay</option>
-            <option>Lésbica</option>
-            <option>Bissexual</option>
-            <option>Assexual</option>
-            <option>Demisexual</option>
-            <option>Pansexual</option>
-            <option>Queer</option>
-            <option>Outro</option>
+            <option value="Héterosexual">Hétero Sexual</option>
+            <option value="Gay">Gay</option>
+            <option value="Lésbica">Lésbica</option>
+            <option value="Bissexual">Bissexual</option>
+            <option value="Assexual">Assexual</option>
+            <option value="Demisexual">Demisexual</option>
+            <option value="Pansexual">Pansexual</option>
+            <option value="Queer">Queer</option>
+            <option value="Outro">Outro</option>
           </select>
           <label htmlFor="formGroupExampleInput" className="form-label">
             Cidade
@@ -223,7 +224,7 @@ function Signup() {
             onChange={handleChange}
           >
             <option></option>
-            <option>Acre AC </option>
+            <option value="Acre AC">Acre AC </option>
             <option>Alagoas AL</option>
             <option>Amapá AP </option>
             <option>Amazonas AM</option>
