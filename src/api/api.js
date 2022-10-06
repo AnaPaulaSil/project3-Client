@@ -2,8 +2,7 @@ import axios from "axios";
 
 const apiURLs = {
   development: "http://localhost:4000",
-  production:
-    "mongodb+srv://andreank:andreank@conectabancodedados.1ws7kgg.mongodb.net/?retryWrites=true&w=majority",
+  production: "https://dev-conecta.herokuapp.com",
 };
 
 const api = axios.create({ baseURL: apiURLs[process.env.NODE_ENV] });
