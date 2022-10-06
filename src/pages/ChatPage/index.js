@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { ChatRoom } from "../../components/ChatRoom/index";
 import NavbarChat from "../../components/NavbarChat";
+import style from "./style.module.css"
 
 function ChatPage() {
   const { idChat } = useParams();
@@ -49,14 +50,15 @@ function ChatPage() {
         setChats={setChats}
       />
 
-      <form>
+      <form className={style.form}>
           <input
+          className={style.sendmsg}
             style={{
               display: "flex",
               padding: "5px",
-              position: "fixed",
+              // position: "fixed",
               bottom: "0",
-              width: "100%",
+              // width: "100%",
               borderTop: "1px solid ligthgray",
             }}
             name="mensagem"
@@ -66,10 +68,11 @@ function ChatPage() {
             onChange={handleChange}
           />
           <button
-          style={{ border: "none", marginRight: "5px", color: "red" }}
+          className={style.sendbtn}
+          style={{ border: "none",  color: "red" }}
           onClick={handleSubmit}
           >
-            enviar mensagem
+            🔥
           </button>
             
       </form>

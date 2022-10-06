@@ -21,23 +21,24 @@ export function ChatRoom({ setChats, chats, setReload, reload, idChat }) {
     fetchChat();
   }, []);
 
-
   return (
     <>
-      {!loading &&
-        chats.conversa.map((msg) => {
-          return (
-            <div
-              className={
-                loggedInUser.user._id == msg.author
-                  ? "myMessage"
-                  : "otherMessage"
-              }
-            >
-              <p style={{fontSize: "18px"}}>{msg.mensagem}</p>
-            </div>
-          );
-        })}
+      <div style={{ marginBottom: "12%" }}>
+        {!loading &&
+          chats.conversa.map((msg) => {
+            return (
+              <div
+                className={
+                  loggedInUser.user._id == msg.author
+                    ? "myMessage"
+                    : "otherMessage"
+                }
+              >
+                <p style={{ fontSize: "18px" }}>{msg.mensagem}</p>
+              </div>
+            );
+          })}
+      </div>
     </>
   );
 }

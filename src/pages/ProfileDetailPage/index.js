@@ -4,14 +4,16 @@ import Navbarr from "../../components/Navbar";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
+import { BsHeartFill } from "react-icons/bs";
 
 function ProfileDetailPage() {
   const [chat, setChat] = useState([]);
   const [users, setUsers] = useState({});
-  //isloading
   const { id } = useParams();
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function InitChat() {
     try {
@@ -51,15 +53,39 @@ function ProfileDetailPage() {
     }
   }
 
+  const [buttonToggle, setButtonToggle] = useState(true);
+  function handleToggle() {
+    setButtonToggle(!buttonToggle);
+  }
+  const [likeToggle, setLikeToggle] = useState(true);
+  function handleLike() {
+    setLikeToggle(!likeToggle);
+  }
+
+  useEffect(() => {
+    async function allPosts() {
+      setIsLoading(true);
+      try {
+        const response = await api.get(`/posts/all-posts`);
+        setPosts(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    allPosts();
+  }, []);
+  console.log(posts);
+
   return (
     <>
       <Navbarr />
-      <Card> 
+      <Card>
         <img
           style={{ width: "350px", display: "flex", margin: "5%" }}
           src={users.profilePic}
         />
-        <div style= {{display: "flex"}}>
+        <div style={{ display: "flex" }}>
           <h1
             style={{
               color: "black",
@@ -86,6 +112,13 @@ function ProfileDetailPage() {
             <BsFillChatRightDotsFill />
           </button>
         </div>
+
+        {buttonToggle ? (
+          <button onClick={handleToggle}>seguir</button>
+        ) : (
+          <button onClick={handleToggle}>deixar de seguir</button>
+        )}
+
         <h6>
           {users.statusRel}, {users.orientacaoSexual}
         </h6>
@@ -106,14 +139,22 @@ function ProfileDetailPage() {
           {users.interesses}
         </p>
       </Card>
-      {posts.map((post) => {
-        return (
-          <Card>
-            <p>{post.username}</p>
-            <p>{post.posts}</p>
-          </Card>
-        )
-      })}
+      {!isLoading &&
+        posts.map((post) => {
+          return (
+            <>
+              <Card>
+                <p>{post.author.username}</p>
+                <p>{post.content}</p>
+                {likeToggle ? (
+                  <button onClick={handleLike}><BsHeart/></button>
+                ) : (
+                  <button onClick={handleLike}><BsHeartFill/></button>
+                )}
+              </Card>
+            </>
+          );
+        })}
     </>
   );
 }
