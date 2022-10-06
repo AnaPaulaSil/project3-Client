@@ -214,11 +214,12 @@ function ProfilePage() {
         </div>
         <EditPostPage reload={reload} setReload={setReload} />
 
-        <button onClick={handleLogOut}>Logout</button>
-      </div>
 
-    </>
-  );
-}
+//         <button onClick={handleLogOut}>Logout</button>
+//       </div>
 
-export default ProfilePage;
+//     </>
+//   );
+// }
+
+// export default ProfilePage;
