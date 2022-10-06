@@ -1,6 +1,7 @@
 .navbar {
-background: linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%) 
-
+background: linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%);
+position: fixed;
+width: 100%
 }
 
 .back {
