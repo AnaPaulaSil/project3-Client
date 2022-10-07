@@ -27,10 +27,12 @@ function NavbarChat() {
 
   return (
     <>
-      <Navbar style={{ backgroundColor: "lightgrey", display: "flex" }}>
+      <Navbar style={{ backgroundColor: "rgb(211, 203, 203)", display: "flex" }}>
         {/* ESSA PORRA TAMBEM TA ERRADA */}
         <Link to={`/users/${date}`}>
-          <BsFillArrowLeftCircleFill style={{color: "white", fontSize: "30px", marginLeft: "15px"}}/>
+          <BsFillArrowLeftCircleFill
+            style={{ color: "white", fontSize: "45px", margin: "8px", marginLeft: "15px" }}
+          />
         </Link>
       </Navbar>
     </>

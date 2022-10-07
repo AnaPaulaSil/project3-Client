@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { ChatRoom } from "../../components/ChatRoom/index";
 import NavbarChat from "../../components/NavbarChat";
-import style from "./style.module.css"
+import style from "./style.module.css";
 
 function ChatPage() {
   const { idChat } = useParams();
@@ -40,7 +40,8 @@ function ChatPage() {
   return (
     <>
       <NavbarChat />
-      <h1>Chat</h1>
+      
+      <p style={{marginTop: "15px", color: "rgb(235, 228, 228)"}}>Todas as conversas desse chat permanecerão salvas</p>
 
       <ChatRoom
         chats={chats}
@@ -51,30 +52,31 @@ function ChatPage() {
       />
 
       <form className={style.form}>
-          <input
+        <input
           className={style.sendmsg}
-            style={{
-              display: "flex",
-              padding: "5px",
-              // position: "fixed",
-              bottom: "0",
-              // width: "100%",
-              borderTop: "1px solid ligthgray",
-            }}
-            name="mensagem"
-            type="text"
-            value={form.mensagem}
-            // placeholder="digite uma mensagem"
-            onChange={handleChange}
-          />
-          <button
+          style={{
+            display: "flex",
+            padding: "5px",
+            // position: "fixed",
+            bottom: "0",
+            // width: "100%",
+            borderTop: "1px solid ligthgray",
+            borderRadius: "15px",
+            fontSize: "25px",
+          }}
+          name="mensagem"
+          type="text"
+          value={form.mensagem}
+          // placeholder="digite uma mensagem"
+          onChange={handleChange}
+        />
+        <button
           className={style.sendbtn}
-          style={{ border: "none",  color: "red" }}
+          style={{ border: "none", fontSize: "40px" }}
           onClick={handleSubmit}
-          >
-            🔥
-          </button>
-            
+        >
+          🔥
+        </button>
       </form>
     </>
   );
