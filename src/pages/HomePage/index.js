@@ -3,6 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/authContext";
 import { api } from "../../api/api";
 import style from "./style.module.css"
+import logo from "../../assets/conecta-vertical.png"
+
 
 function HomePage() {
   const { loggedInUser } = useContext(AuthContext);
@@ -25,18 +27,21 @@ function HomePage() {
   }, []);
 
   return (
-    <div className={style.homeBody}>
+    <div div className={style.body}>
       {/* {!loggedInUser && ( */}
-        <>
-          <h1>Home</h1>
-          <Link to="/sign-up"><button>Sign up</button></Link>
+        <div className={style.formSignUp}>
+          <>
+          <img src={logo}/>
+          <Link className="btn btn-light" id={style.submit} style={{marginTop: "20px"}} to="/sign-up">Sign up</Link>
+
         </>
        {/* )} */}
 
       <>
-        <Link to="/login">Login</Link>
-      </>
-    </div>
+        <Link className="btn btn-light" id={style.submit} style={{marginTop: "10px"}} to="/login">Login</Link>
+    </>
+      </div>
+      </div>
   );
 }
 export default HomePage;

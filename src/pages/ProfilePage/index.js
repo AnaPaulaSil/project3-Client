@@ -15,6 +15,7 @@ function ProfilePage() {
 
   const [form, setForm] = useState({
     content: "",
+
   });
 
   const [user, setUser] = useState({});
@@ -34,7 +35,6 @@ function ProfilePage() {
         const response = await api.get(`/users/profile`);
         console.log(response.data);
         setUser(response.data);
-        setForm(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);

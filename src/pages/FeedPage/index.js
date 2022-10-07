@@ -5,6 +5,7 @@ import Navbarr from "../../components/Navbar/index";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 // import wallpaper from "../../assets/images/bg-01.jpg";
+import style from "./style.module.css"
 
 function FeedPage() {
   const [users, setUsers] = useState([]);
@@ -44,8 +45,9 @@ function FeedPage() {
   return (
     <>
       <Navbarr />
-      <h1>feed</h1>
-      <div>
+      <div style={{  backgroundColor: "beige"}}>
+      {/* <h1>feed</h1> */}
+      <div className={style.container}>
         {!loading &&
           users
             .filter((user) => {
@@ -53,8 +55,9 @@ function FeedPage() {
             })
             .map((user) => {
               return (
-                <>
+                <div className={style.item}>
                   <Card
+                  
                     style={{
                       width: "18rem",
                       margin: "5%",
@@ -110,9 +113,10 @@ function FeedPage() {
                   <p>{user.age}</p>
                   <h6>{user.cidade}</h6> */}
                   </Card>
-                </>
+                </div>
               );
             })}
+      </div>
       </div>
     </>
   );
