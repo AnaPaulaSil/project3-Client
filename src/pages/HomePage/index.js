@@ -31,7 +31,7 @@ function HomePage() {
       {/* {!loggedInUser && ( */}
         <div className={style.formSignUp}>
           <>
-          <img src={logo}/>
+          <img src={logo} style={{ width:"80%", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column" }}/>
           <Link className="btn btn-light" id={style.submit} style={{marginTop: "20px"}} to="/sign-up">Sign up</Link>
 
         </>
