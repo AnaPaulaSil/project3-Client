@@ -25,9 +25,9 @@ function EditPostPage({ reload, setReload }) {
   return (
     <div>
       <h1>Meus posts</h1>
+      <hr ></hr>
 
       <div>
-        <p>POSTSBOX</p>
         {posts.map((post) => {
           return (
             <>

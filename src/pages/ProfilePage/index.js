@@ -2,19 +2,20 @@ import { useState, useEffect, useContext } from "react";
 import { api } from "../../api/api";
 import Navbarr from "../../components/Navbar";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import style from "../../pages/ProfilePage/style.module.css";
 import EditProfilePage from "../../components/EditProfilePage";
 import { Button } from "react-bootstrap";
 import EditPostPage from "../../components/EditPostPage";
 
 import { AuthContext } from "../../context/authContext";
 
+import style from "./style.module.css";
+
 function ProfilePage() {
   const { id } = useParams();
 
   const [form, setForm] = useState({
     content: "",
-   
+
   });
 
   const [user, setUser] = useState({});
@@ -95,16 +96,19 @@ function ProfilePage() {
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-
+  console.log(form);
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       await api.post("/posts/create-post", form);
+
       setReload(!reload);
     } catch (error) {
       console.log(error);
     }
   }
+
+  console.log(form);
 
   async function EditProfile() {
     try {
@@ -150,10 +154,15 @@ function ProfilePage() {
       <div className={style.bodyprofile}>
         {!isLoading && (
           <>
-            <h1>{user.username}</h1>
+            <h1 style={{ justifyContent: "left", marginTop:"5%" }}>{user.username} </h1>
+            <img
+              className={style.profilePic}
+              src={user.profilePic}
+              alt=""
+              width={300}
+            />
             <p>{user.cidade}</p>
             <p>{user.statusRel}</p>
-            <img src={user.profilePic} alt="" width={150} />
 
             <p>Bio: {user.bio}</p>
 
@@ -180,25 +189,35 @@ function ProfilePage() {
           />
         )}
 
-        <label>Faça um post:</label>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            placeholder="Digite aqui..."
-            name="content"
-            type="text"
-            value={form.content}
-            onChange={handleChange}
-          />
-          <button type="submit" className="btn btn-light">
-            Send!
-          </button>
-        </form>
+<EditPostPage reload={reload} setReload={setReload} />
 
-        <div>
-          <p>Alterar foto de perfil</p>
-          <input type="file" onChange={handleImage} />
+        <div className="form-group">
+          <label htmlFor="exampleFormControlTextarea1">Faça um post:</label>
+          <form onSubmit={handleSubmit}>
+            <textarea
+              placeholder="Digite aqui..."
+              name="content"
+              type="text"
+              value={form.content}
+              onChange={handleChange}
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+            />
+            <button type="submit" className="btn btn-light">
+              Send!
+            </button>
+          </form>
         </div>
-        <EditPostPage reload={reload} setReload={setReload} />
+
+        <div className="form-group">
+          <p>Alterar foto de perfil</p>
+          <input
+            type="file"
+            className="form-control-file"
+            onChange={handleImage}
+          />
+        </div>
         <button onClick={handleLogOut}>Logout</button>
       </div>
     </>

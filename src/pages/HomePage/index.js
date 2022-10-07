@@ -5,6 +5,7 @@ import { api } from "../../api/api";
 import style from "./style.module.css"
 import logo from "../../assets/conecta-vertical.png"
 
+
 function HomePage() {
   const { loggedInUser } = useContext(AuthContext);
 
@@ -32,6 +33,7 @@ function HomePage() {
           <>
           <img src={logo}/>
           <Link className="btn btn-light" id={style.submit} style={{marginTop: "20px"}} to="/sign-up">Sign up</Link>
+
         </>
        {/* )} */}
 

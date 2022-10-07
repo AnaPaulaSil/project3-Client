@@ -41,7 +41,7 @@ function FeedPage() {
   // console.log("logged", loggedInUser._id);
   // console.log("user", users._id);
 
-  // console.log(users);
+  console.log(users);
   return (
     <>
       <Navbarr />
@@ -61,6 +61,7 @@ function FeedPage() {
                     style={{
                       width: "18rem",
                       margin: "5%",
+                      marginTop:"15%",
                       boxShadow: "0 8px 6px -6px black",
                       // backgroundImage: "wallpaper",
                       // backgroundColor: "pink"
