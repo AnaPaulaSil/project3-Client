@@ -44,6 +44,7 @@ function FeedPage() {
   return (
     <>
       <Navbarr />
+      <div style={{  backgroundColor: "beige"}}>
       <h1>feed</h1>
       <div>
         {!loading &&
@@ -112,6 +113,7 @@ function FeedPage() {
                 </>
               );
             })}
+      </div>
       </div>
     </>
   );

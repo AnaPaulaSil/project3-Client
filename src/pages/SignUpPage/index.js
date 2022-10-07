@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import Button from "react-bootstrap/Button";
 import style from "./style.module.css";
+import {Toaster, toast} from "react-hot-toast"
 
 function Signup() {
   const interesses = [
@@ -118,8 +119,10 @@ function Signup() {
       await api.post("/users/sign-up", { ...form, profilePic: imgURL });
 
       navigate("/login");
+      toast.success('Usuário criado com sucesso')
     } catch (error) {
       console.log(error);
+      toast.error('Erro na criação do usuário')
     }
   }
 
