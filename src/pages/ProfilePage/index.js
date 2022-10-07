@@ -10,12 +10,15 @@ import { AuthContext } from "../../context/authContext";
 
 import style from "./style.module.css";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 function ProfilePage() {
   const { id } = useParams();
 
   const [form, setForm] = useState({
     content: "",
-
   });
 
   const [user, setUser] = useState({});
@@ -147,79 +150,96 @@ function ProfilePage() {
       console.log(error);
     }
   }
-
+  console.log(user.interesses);
   return (
     <>
       <Navbarr />
-      <div className={style.bodyprofile}>
-        {!isLoading && (
-          <>
-            <h1 style={{ justifyContent: "left", marginTop:"5%" }}>{user.username} </h1>
-            <img
-              className={style.profilePic}
-              src={user.profilePic}
-              alt=""
-              width={300}
-            />
-            <p>{user.cidade}</p>
-            <p>{user.statusRel}</p>
+      <Container className="mt-3 mb-5">
+        <Row>
+          <Col md="4">
+            <h1>{user.username} </h1>
+            {!isLoading && (
+              <>
+                <img src={user.profilePic} alt="" width="80%" />
+                <p>
+                  <strong>Cidade: </strong>
+                  {user.cidade}
+                  <br />
+                  <strong>Estou: </strong>
+                  {user.statusRel}
+                  <br />
+                  <strong>Bio: </strong> {user.bio}
+                  <br />
+                  Interesses em:{" "}
+                  {user.interesses.map((int) => {
+                    return <spam>{`${int} `}</spam>;
+                  })}
+                </p>
 
-            <p>Bio: {user.bio}</p>
+                <Button
+                  onClick={() => setShowForm(!showForm)}
+                  className="btn btn-outline-primary text-white btn-sm me-2"
+                >
+                  Editar Perfil
+                </Button>
+              </>
+            )}
+          </Col>
+          <Col md="8">
+            {!isLoading && (
+              <>
+                {showForm === true && (
+                  <EditProfilePage
+                    form={form}
+                    id={id}
+                    setShowForm={setShowForm}
+                    setForm={setForm}
+                    reload={reload}
+                    setReload={setReload}
+                    showForm={showForm}
+                  />
+                )}
+              </>
+            )}
 
-            <p>Interesses em: {user.interesses}</p>
+            <EditPostPage reload={reload} setReload={setReload} />
+            <div className={style.bodyprofile}>
+              <div className="form-group">
+                <label htmlFor="exampleFormControlTextarea1">
+                  Faça um post:
+                </label>
+                <form onSubmit={handleSubmit}>
+                  <textarea
+                    placeholder="Digite aqui..."
+                    name="content"
+                    type="text"
+                    value={form.content}
+                    onChange={handleChange}
+                    className="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                  />
+                  <Button type="submit" variant="primary">
+                    Send!
+                  </Button>
+                </form>
+              </div>
 
-            <Button
-              onClick={() => setShowForm(!showForm)}
-              className="btn btn-light btn-outline-dark btn-sm me-2"
-            >
-              Editar Perfil
-            </Button>
-          </>
-        )}
-
-        {showForm === true && (
-          <EditProfilePage
-            form={form}
-            id={id}
-            setShowForm={setShowForm}
-            setForm={setForm}
-            reload={reload}
-            setReload={setReload}
-            showForm={showForm}
-          />
-        )}
-
-<EditPostPage reload={reload} setReload={setReload} />
-
-        <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Faça um post:</label>
-          <form onSubmit={handleSubmit}>
-            <textarea
-              placeholder="Digite aqui..."
-              name="content"
-              type="text"
-              value={form.content}
-              onChange={handleChange}
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-            />
-            <button type="submit" className="btn btn-light">
-              Send!
-            </button>
-          </form>
-        </div>
-
-        <div className="form-group">
-          <p>Alterar foto de perfil</p>
-          <input
-            type="file"
-            className="form-control-file"
-            onChange={handleImage}
-          />
-        </div>
-        <button onClick={handleLogOut}>Logout</button>
-      </div>
+              <div className="form-group">
+                <p>Alterar foto de perfil</p>
+                <input
+                  type="file"
+                  className="form-control-file"
+                  onChange={handleImage}
+                />
+              </div>
+              <Button onClick={handleLogOut} variant="danger" className="mt-4">
+                Logout
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
