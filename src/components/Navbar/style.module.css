@@ -1,10 +1,26 @@
 .navbar {
-background: linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%);
-position: fixed;
-width: 100%
+    /* display: flex; */
+  background: linear-gradient(
+    45deg,
+    rgba(35, 213, 228, 1) 0%,
+    rgba(240, 11, 254, 1) 100%
+  );
+  position: fixed;
+  width: 100%;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
 }
 
 .back {
-    background-color: black;
-    background-size: cover;
+  background-color: black;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
 }
+
+/* .icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} */

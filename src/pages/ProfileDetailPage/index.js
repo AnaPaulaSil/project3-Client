@@ -6,6 +6,7 @@ import { Card } from "react-bootstrap";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
+import styles from "./style.module.css";
 
 function ProfileDetailPage() {
   const [chat, setChat] = useState([]);
@@ -82,10 +83,19 @@ function ProfileDetailPage() {
       <Navbarr />
       <Card>
         <img
-          style={{ width: "350px", display: "flex", margin: "5%" }}
+          alt="profile photo"
+          className={styles.profilePic}
+          // style={{ width: "350px", display: "flex", margin: "5%" }}
           src={users.profilePic}
         />
-        <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginLeft: "5%",
+            marginRight: "5%",
+          }}
+        >
           <h1
             style={{
               color: "black",
@@ -96,7 +106,6 @@ function ProfileDetailPage() {
           >
             {users.username}, {users.age}
           </h1>
-          <p>{users.bio}</p>
           <button
             style={{
               color: "white",
@@ -113,13 +122,19 @@ function ProfileDetailPage() {
           </button>
         </div>
 
+        <p>{users.bio}</p>
+        <hr className={styles.hrLine}></hr>
         {buttonToggle ? (
-          <button onClick={handleToggle}>seguir</button>
+          <button className={styles.followBtn} onClick={handleToggle}>
+            seguir
+          </button>
         ) : (
-          <button onClick={handleToggle}>deixar de seguir</button>
+          <button className={styles.followBtn} onClick={handleToggle}>
+            deixar de seguir
+          </button>
         )}
 
-        <h6>
+        <h6 style={{ marginTop: "3%" }}>
           {users.statusRel}, {users.orientacaoSexual}
         </h6>
         <p>Interesses:</p>
@@ -134,6 +149,7 @@ function ProfileDetailPage() {
               "linear-gradient(45deg, rgba(35,213,228,1) 0%, rgba(240,11,254,1) 100%",
             width: "80px",
             margin: "1%",
+            alignSelf: "center",
           }}
         >
           {users.interesses}
@@ -147,9 +163,13 @@ function ProfileDetailPage() {
                 <p>{post.author.username}</p>
                 <p>{post.content}</p>
                 {likeToggle ? (
-                  <button onClick={handleLike}><BsHeart/></button>
+                  <button onClick={handleLike}>
+                    <BsHeart />
+                  </button>
                 ) : (
-                  <button onClick={handleLike}><BsHeartFill/></button>
+                  <button onClick={handleLike}>
+                    <BsHeartFill />
+                  </button>
                 )}
               </Card>
             </>
