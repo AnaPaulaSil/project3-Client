@@ -7,6 +7,9 @@ import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 import styles from "./style.module.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function ProfileDetailPage() {
   const [chat, setChat] = useState([]);
@@ -81,6 +84,7 @@ function ProfileDetailPage() {
   return (
     <>
       <Navbarr />
+
       <Card>
         <img
           alt="profile photo"

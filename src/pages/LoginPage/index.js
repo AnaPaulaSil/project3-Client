@@ -2,8 +2,15 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { api } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import {Toaster, toast} from "react-hot-toast"
-import style from "./style.module.css"
+import { Toaster, toast } from "react-hot-toast";
+import style from "./style.module.css";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 export function LoginPage() {
   const [form, setForm] = useState({
@@ -30,32 +37,59 @@ export function LoginPage() {
 
       navigate("/feed");
     } catch (error) {
-      toast.error('E-mail ou senha incorretos')
+      toast.error("E-mail ou senha incorretos");
       console.log(error);
     }
   }
 
   return (
-    <div className={style.body}>
+    <>
+      <div className={style.backgroundLogin}>
+        <Container className="background-login">
+          <Row className="justify-content-center">
+            <Col md="4">
+              <Card>
+                <Card.Body>
+                  <Card.Title>
+                    <h1>Login</h1>
+                  </Card.Title>
+                  <hr></hr>
+                  <Form onSubmit={handleSumit}>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Email:</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Senha:</Form.Label>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        value={form.password}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
 
-    <form className={style.formSignUp}
-    onSubmit={handleSumit}>
-      <label>Email:</label>
-      <input
-        type="email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-      />
-      <label>Senha:</label>
-      <input
-        type="password"
-        name="password"
-        value={form.password}
-        onChange={handleChange}
-      />
-      <button className="btn btn-light" id={style.submit} type="submit">Entrar!</button>
-    </form>
-    </div>
+                    <Button variant="primary" type="submit">
+                      Entrar
+                    </Button>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
 }
